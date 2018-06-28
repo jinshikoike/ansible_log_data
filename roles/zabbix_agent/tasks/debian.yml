@@ -1,0 +1,22 @@
+---
+
+- name: install zabbix 3 repository
+  apt:
+    deb: http://repo.zabbix.com/zabbix/3.0/debian/pool/main/z/zabbix-release/zabbix-release_3.0-2+stretch_all.deb
+    state: present
+  tags:
+  - install
+
+- name: install zabbix-agent
+  apt:
+    name: zabbix-agent
+    state: present
+  tags:
+  - install
+
+- name: start zabbix-agent
+  systemd:
+    name: zabbix-agent
+    state: started
+    enabled: yes
+    daemon_reload: yes
