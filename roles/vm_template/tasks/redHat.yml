@@ -16,7 +16,7 @@
   tags:
   - install
 
-- name: install dev packages
+- name: install vm template packages
   yum:
     name: "{{ item }}"
     state: present
@@ -25,12 +25,14 @@
   - git
   - gcc
   - dstat
+  - java-1.8.0-openjdk
   tags:
   - install
 
 - name: check tmux is installed
   shell: tmux -V
   ignore_errors: yes
+  changed_when: False
   register: check_tmux_exist
   tags: install
 
