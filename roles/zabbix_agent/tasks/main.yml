@@ -1,0 +1,25 @@
+---
+# tasks file for zabbix_agent
+# you can check your os family, ansible_distribution ... and so on by `ansible -m setup hostname`
+
+- include_tasks: redHat.yml
+  when: ansible_os_family == 'RedHat'
+  tags: zabbix_agent
+#  Redhat family include CentOS
+
+#- include_tasks: debian.yml
+#  when: ansible_os_family == 'Debian'
+## Debian include Ubuntu
+#
+#- include_tasks: ubuntu.yml
+#  when: ansible_distribution == 'Ubuntu'
+
+- name: configure zabbix-agent
+  template:
+    src: zabbix_agent.conf.j2
+    dest: /etc/zabbix/zabbix_agent.conf
+  tags:
+  - configure
+  notify:
+  - restart zabbix
+  tags: zabbix_agent

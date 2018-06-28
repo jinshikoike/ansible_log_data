@@ -1,0 +1,4 @@
+---
+# defaults file for zabbix_agent
+zabbix_server_ip: 127.0.0.1
+zabbix_agent_host_metadata: zabbix
