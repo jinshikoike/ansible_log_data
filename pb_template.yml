@@ -1,0 +1,11 @@
+---
+
+- hosts: template
+  gather_facts: yes
+  roles:
+  - zabbix_agent
+
+- hosts: template
+  gather_facts: yes
+  roles:
+  - vm_template
