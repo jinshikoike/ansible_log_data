@@ -1,0 +1,8 @@
+[all]
+host_key_checking=False
+ansible_ssh_port=22
+ansible_ssh_user=root
+
+[template]
+
+[elasticsearch]
