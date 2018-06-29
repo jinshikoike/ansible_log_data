@@ -1,0 +1,12 @@
+---
+
+# defaults file for elasticsearch
+elasticsearch_version: 6.3.0
+
+
+### debian family only
+#elasticsearch_deb_url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.0.deb
+#elasticsearch_deb_file_name: elasticsearch.deb
+#elasticsearch_deb_file_path: "/tmp/{{ elasticsearch_deb_file_name }}"
+
+

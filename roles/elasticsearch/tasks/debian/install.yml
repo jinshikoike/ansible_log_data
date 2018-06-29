@@ -1,0 +1,46 @@
+---
+
+- name: install jdk
+  apt:
+    name: openjdk-8-jdk
+    state: present
+    update_cache: yes
+  tags:
+  - install
+
+- name: install pgp key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+#- name: download elasticsearch.deb
+#  get_url:
+#    url: "{{ elasticsearch_deb_url }}"
+#    dest: "{{ elasticsearch_deb_file_path }}"
+#  changed_when: False
+#
+#- name: put elasticsearch.deb.sha512
+#  template:
+#    src: "{{ elasticsearch_deb_file_name }}.sha512"
+#    dest: "{{ elasticsearch_deb_file_path }}.sha512"
+#  changed_when: False
+#
+#- name: check shasum
+#  shell: shasum -a 512 -c -s "{{ elasticsearch_deb_file_path }}.sha512"
+#  changed_when: False
+#  ignore_errors: yes
+
+- name: install apt-transport-https
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: add elasticsearch 6.x apt repository
+  shell: echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+
+- name: install elasticsearch
+  apt:
+    name: elasticsearch={{ elasticsearch_version | default('6.3.0') }}
+    state: present
+    update_cache: yes
+  notify: start elasticsearch
