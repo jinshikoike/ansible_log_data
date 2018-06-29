@@ -1,0 +1,6 @@
+---
+
+- hosts: elasticsearch
+  gather_facts: yes
+  roles:
+  - elasticsearch
