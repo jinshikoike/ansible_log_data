@@ -1,0 +1,23 @@
+---
+
+- name: install jdk
+  yum:
+    name: java-1.8.0-openjdk
+    state: present
+    update_cache: yes
+
+- name: install gpg-key
+  rpm_key:
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: add elasticsearch 6.x yum repository
+  template:
+    src: etc/yum.repos.d/elasticsearch.repo
+    dest: /etc/yum.repos.d/elasticsearch.repo
+
+- name: install elasticsearch 6
+  yum:
+    name: elasticsearch-{{ elasticsearch_version | default('6.3.0') }}
+    state: present
+  notify: start elasticsearch
