@@ -1,0 +1,6 @@
+---
+
+- hosts: roles/logstash
+  gather_facts: yes
+  roles:
+  - logstash
