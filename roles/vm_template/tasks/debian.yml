@@ -1,0 +1,44 @@
+- name: create /etc/apt/apt.conf.d/apt.conf
+  file:
+    path: /etc/apt/apt.conf.d/apt.conf
+    state: touch
+  changed_when: False
+
+- name: apt repository settings
+  lineinfile:
+    path: /etc/apt/apt.conf.d/apt.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: "^Acquire::ftp::proxy"
+      line: 'Acquire::ftp::proxy "{{ proxy_env.http_proxy }}";'
+
+    - regexp: "^Acquire::http::proxy"
+      line: 'Acquire::http::proxy "{{ proxy_env.http_proxy }}";'
+    - regexp: "^Acquire::https::proxy"
+      line: 'Acquire::https::proxy "{{ proxy_env.https_proxy }}";'
+
+    - regexp: "^Acquire::http::No-Cache"
+      line: "Acquire::http::No-Cache true;"
+
+    - regexp: "^Acquire::http::Pipeline-Depth"
+      line: 'Acquire::http::Pipeline-Depth 0;'
+  when: proxy_env.http_proxy is defined and proxy_env.https_proxy is defined
+
+# need for ansible selinux module if host is ubuntu os
+#- name: Install the libselinux-python package
+#  apt:
+#    name: python-selinux
+#    state: present
+
+#- name: disable selinux
+#  selinux:
+#    state: disabled
+#
+
+- name: disable firewall
+  systemd:
+    name: ufw
+    enabled: no
+    state: stopped

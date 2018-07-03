@@ -1,0 +1,22 @@
+- name: create /etc/yum.conf
+  file:
+    path: /etc/yum.conf
+    state: touch
+  changed_when: False
+
+- name: set http proxy to yum.conf
+  lineinfile:
+    path: /etc/yum.conf
+    regexp: '^proxy='
+    line: "proxy={{ proxy_env.http_proxy }}"
+  when: proxy_env.http_proxy is defined
+
+- name: disable selinux
+  selinux:
+    state: disabled
+
+- name: disable firewall
+  systemd:
+    name: firewalld
+    enabled: no
+    state: stopped
