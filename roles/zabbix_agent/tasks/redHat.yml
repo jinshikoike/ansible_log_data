@@ -1,22 +1,33 @@
 ---
-#- name: install zabbix 3 yum repositoy
-#  shell: http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
-#    state: absent
-#  environemtn: "{{ proxy_env }}"
-#  tags:
-#  - install
+
+- name: check zabbix repo
+  shell: test -e /etc/yum.repos.d/zabbix.repo
+  register: check_zabbix_repo
+  changed_when: False
+  ignore_errors: yes
 
 - name: install zabbix 3 yum repo
   shell: rpm --force -ivh http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm
+  environment: "{{ proxy_env }}"
+  changed_when: check_zabbix_repo.rc == 1
+  tags: install
+
+- name: pseudo install zabbix-agent
+  debug:
+    msg: "install zabbix agent"
+  changed_when: check_zabbix_repo.rc == 1
+  check_mode: check_zabbix_repo.rc == 1
+  when: check_zabbix_repo.rc == 1
 
 - name: install zabbix-agent
   yum:
     name: zabbix-agent
     state: present
     update_cache: yes
-  environemtn: "{{ proxy_env }}"
+  environment: "{{ proxy_env }}"
   tags:
   - install
+  check_mode: no
 
 - name: start zabbix-agent
   systemd:
@@ -24,4 +35,4 @@
     state: started
     enabled: yes
     daemon_reload: yes
-
+  check_mode: no
