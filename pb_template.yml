@@ -8,4 +8,9 @@
 - hosts: template
   gather_facts: yes
   roles:
+  - vm_dev_template
+
+- hosts: template
+  gather_facts: yes
+  roles:
   - vm_template
