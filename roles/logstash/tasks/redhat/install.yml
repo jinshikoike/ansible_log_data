@@ -1,0 +1,26 @@
+---
+
+- name: install jdk
+  yum:
+    name: java-1.8.0-openjdk
+    state: present
+    update_cache: yes
+  environment: "{{ proxy_env }}"
+
+- name: install gpg-key
+  rpm_key:
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+  environment: "{{ proxy_env }}"
+
+- name: add logstash 6.x yum repository
+  template:
+    src: etc/yum.repos.d/logstash.repo
+    dest: /etc/yum.repos.d/logstash.repo
+
+- name: install logstash 6
+  yum:
+    name: logstash-{{ logstash_version | default('6.3.0') }}
+    state: present
+  notify: start logstash
+  environment: "{{ proxy_env }}"
