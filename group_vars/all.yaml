@@ -1,8 +1,8 @@
 ---
-vm_template_password: xxxxxx
-proxy_ip: xxx.xxx.xxx.xxx
-proxy_port: xxxx
-proxy_env:
+#vm_template_password: xxxxxx
+#proxy_ip: xxx.xxx.xxx.xxx
+#proxy_port: xxxx
+#proxy_env:
   #http_proxy:  "http://{{ proxy_ip }}:{{ proxy_port }}"
   #https_proxy: "http://{{ proxy_ip }}:{{ proxy_port }}"
 
