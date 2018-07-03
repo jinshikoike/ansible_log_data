@@ -1,0 +1,10 @@
+---
+# tasks file for auditbeat
+- include_tasks: tasks/redhat/configure.yml
+  when: ansible_os_family == 'RedHat'
+  tags: elasticsearch
+
+- include_tasks: tasks/debian/configure.yml
+  when: ansible_os_family == 'Debian'
+  tags: elasticsearch
+

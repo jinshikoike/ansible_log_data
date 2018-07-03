@@ -1,0 +1,27 @@
+---
+
+- hosts: roles/auditbeat
+  gather_facts: yes
+  roles:
+  - auditbeat
+
+- hosts: roles/filebeat
+  gather_facts: yes
+  roles:
+  - filebeat
+
+- hosts: roles/heartbeat
+  gather_facts: yes
+  roles:
+  - heartbeat
+
+- hosts: roles/metricbeat
+  gather_facts: yes
+  roles:
+  - metricbeat
+
+- hosts: roles/packetbeat
+  gather_facts: yes
+  roles:
+  - packetbeat
+
