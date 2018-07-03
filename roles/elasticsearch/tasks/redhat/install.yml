@@ -5,11 +5,13 @@
     name: java-1.8.0-openjdk
     state: present
     update_cache: yes
+  environment: "{{ proxy_env }}"
 
 - name: install gpg-key
   rpm_key:
     key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
     state: present
+  environment: "{{ proxy_env }}"
 
 - name: add elasticsearch 6.x yum repository
   template:
@@ -21,3 +23,4 @@
     name: elasticsearch-{{ elasticsearch_version | default('6.3.0') }}
     state: present
   notify: start elasticsearch
+  environment: "{{ proxy_env }}"
