@@ -1,0 +1,17 @@
+---
+# tasks file for vm_template
+# you can check your os family, ansible_distribution ... and so on by `ansible -m setup hostname`
+
+- include_tasks: redHat.yml
+  when: ansible_os_family == 'RedHat'
+  tags: vm_template
+# Redhat family include CentOS
+
+#- include_tasks: debian.yml
+#  when: ansible_os_family == 'Debian'
+## Debian include Ubuntu
+#
+#- include_tasks: ubuntu.yml
+#  when: ansible_distribution == 'Ubuntu'
+
+

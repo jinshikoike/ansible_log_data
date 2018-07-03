@@ -1,17 +1,31 @@
 ---
+
 # tasks file for vm_template
-# you can check your os family, ansible_distribution ... and so on by `ansible -m setup hostname`
+- name: set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
 
-- include_tasks: redHat.yml
+- name: user password
+  user:
+    name: root
+    password: "{{ vm_template_password }}"
+
+- name: set http proxy to bashrc
+  lineinfile:
+    path: /root/.bashrc
+    regexp: '^http_proxy='
+    line: "http_proxy={{ proxy_env.http_proxy }}"
+  when: proxy_env.http_proxy is defined
+
+- name: set https proxy to bashrc
+  lineinfile:
+    path: /root/.bashrc
+    regexp: '^https_proxy='
+    line: "https_proxy={{ proxy_env.https_proxy }}"
+  when: proxy_env.https_proxy is defined
+
+- include_tasks: redhat.yml
   when: ansible_os_family == 'RedHat'
-  tags: vm_template
-# Redhat family include CentOS
 
-#- include_tasks: debian.yml
-#  when: ansible_os_family == 'Debian'
-## Debian include Ubuntu
-#
-#- include_tasks: ubuntu.yml
-#  when: ansible_distribution == 'Ubuntu'
-
-
+- include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
