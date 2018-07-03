@@ -7,9 +7,10 @@
   tags: zabbix_agent
 #  Redhat family include CentOS
 
-#- include_tasks: debian.yml
-#  when: ansible_os_family == 'Debian'
-## Debian include Ubuntu
+- include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+  tags: zabbix_agent
+# Debian include Ubuntu
 #
 #- include_tasks: ubuntu.yml
 #  when: ansible_distribution == 'Ubuntu'
