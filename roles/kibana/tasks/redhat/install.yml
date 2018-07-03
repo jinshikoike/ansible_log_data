@@ -1,0 +1,19 @@
+---
+
+- name: install gpg-key
+  rpm_key:
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+  environment: "{{ proxy_env }}"
+
+- name: add kibana 6.x yum repository
+  template:
+    src: etc/yum.repos.d/kibana.repo
+    dest: /etc/yum.repos.d/kibana.repo
+
+- name: install kibana 6
+  yum:
+    name: kibana-{{ kibana_version | default('6.3.0') }}
+    state: present
+  notify: start kibana
+  environment: "{{ proxy_env }}"

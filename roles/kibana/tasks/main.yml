@@ -1,0 +1,11 @@
+---
+
+- include_tasks: tasks/redhat/install.yml
+  when: ansible_os_family == 'RedHat'
+  tags: kibana
+
+- include_tasks: tasks/debian/install.yml
+  when: ansible_os_family == 'Debian'
+  tags: kibana
+
+
