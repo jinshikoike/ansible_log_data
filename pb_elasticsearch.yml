@@ -1,6 +1,33 @@
 ---
 
-- hosts: roles/elasticsearch
+- hosts: roles/esmaster
   gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      es_master_nodes: "{{ es_cluster_master_nodes | es_ip_list(hostvars) }}"
+    tags: always
+    changed_when: False
   roles:
-  - elasticsearch
+  - esmaster
+
+- hosts: roles/esdata
+  gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      es_master_nodes: "{{ es_cluster_master_nodes | es_ip_list(hostvars) }}"
+    tags: always
+    changed_when: False
+  roles:
+  - esdata
+
+- hosts: roles/escordinator
+  gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      es_master_nodes: "{{ es_cluster_master_nodes | es_ip_list(hostvars) }}"
+    tags: always
+    changed_when: False
+  roles:
+  - escordinator
+
+
