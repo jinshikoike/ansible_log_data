@@ -3,6 +3,72 @@ host_key_checking=False
 ansible_ssh_port=22
 ansible_ssh_user=root
 
-[template]
+[environments/dev:children]
+roles/elasticsearch
+roles/kibana
+roles/logstash
+roles/beats
 
-[elasticsearch]
+[template]
+centos
+ubuntu_os
+
+[roles/elasticsearch:children]
+roles/esmaster
+roles/esdata
+roles/escordinator
+
+[roles/esmaster]
+master01
+master02
+
+[roles/esdata]
+data01
+data02
+
+[roles/escordinator]
+cord01
+
+[clusters/test]
+master01 ansible_ssh_host=xxx.xxx.xxx.xxx es_host=x.x.x.x
+master02 ansible_ssh_host=xxx.xxx.xxx.xxx es_host=x.x.x.x
+data01 ansible_ssh_host= es_host=
+data02 ansible_ssh_host= es_host=
+cord01 ansible_ssh_host= es_host=
+
+
+[roles/kibana]
+Kbn01-cent ansible_ssh_host=
+Kbn02-ubuntu ansible_ssh_host=
+
+[roles/logstash:children]
+roles/auditbeat
+roles/filebeat
+roles/heartbeat
+roles/metricbeat
+roles/packetbeat
+
+[roles/beats]
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+
+[roles/auditbeat]
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+
+[roles/filebeat]
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+
+[roles/heartbeat]
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+
+[roles/metricbeat]
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+
+[roles/packetbeat]
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+
