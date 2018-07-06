@@ -1,0 +1,9 @@
+---
+zabbix_agent_host_metadata: esdata
+# - /etc/test1
+es_is_master_node: False
+es_is_data_node: True
+es_is_ingest_node: False
+es_enable_remote_connect: False
+es_data_path: "{{ host_es_data_path | default(['/var/data/elasticsearch'])}}"
+

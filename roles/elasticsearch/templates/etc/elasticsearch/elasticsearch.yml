@@ -1,0 +1,19 @@
+---
+
+cluster.name: {{ es_cluster_name }}
+node.name: ${HOSTNAME}
+network.host: [{{ es_host | default(ansible_ssh_host) }}, localhost]
+http.port: {{ es_http_port | default('9200') }}
+node.master: {{ es_is_master_node | lower }}
+node.data: {{ es_is_data_node | lower }}
+node.ingest: {{ es_is_ingest_node | lower }}
+search.remote.connect: {{ es_enable_remote_connect | lower }}
+path.logs: {{ es_log_path }}
+path.data: {{ es_data_path | to_yaml }}
+action.destructive_requires_name: true
+bootstrap.memory_lock: true
+discovery.zen.ping.unicast.hosts: {{ es_master_nodes | join(',') }}
+{% if es_is_master_node %}
+discovery.zen.minimum_master_nodes: {{ es_number_of_minimum_master_nodes }}
+{% endif %}
+

@@ -22,5 +22,4 @@
   yum:
     name: elasticsearch-{{ elasticsearch_version | default('6.3.0') }}
     state: present
-  notify: start elasticsearch
   environment: "{{ proxy_env }}"
