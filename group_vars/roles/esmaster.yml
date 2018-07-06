@@ -1,0 +1,11 @@
+---
+zabbix_agent_host_metadata: esmaster
+es_is_master_node: True
+es_is_data_node: False
+es_is_ingest_node: False
+es_enable_remote_connect: False
+
+es_data_path:
+  - /var/data/elasticsearch
+
+es_number_of_minimum_master_nodes: "{{ ((es_master_nodes | length)/2) | int + 1 }}"

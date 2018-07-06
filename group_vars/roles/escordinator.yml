@@ -1,0 +1,7 @@
+---
+zabbix_agent_host_metadata: escordinate
+es_is_master_node: False
+es_is_data_node: False
+es_is_ingest_node: False
+es_enable_remote_connect: False
+
