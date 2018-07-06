@@ -1,0 +1,32 @@
+---
+
+- name: create path.data directory
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: elasticsearch
+    group: elasticsearch
+  with_items: "{{ es_data_path }}"
+
+- name: create /etc/systemd/system/elasticsearch.service.d directory
+  file:
+    state: directory
+    path: /etc/systemd/system/elasticsearch.service.d
+
+- name: elasticsearch config
+  template:
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
+  with_items:
+    - { src: etc/elasticsearch/elasticsearch.yml, dest: /etc/elasticsearch/elasticsearch.yml }
+    - { src: etc/elasticsearch/jvm.options, dest: /etc/elasticsearch/jvm.options }
+    - { src: etc/systemd/system/elasticsearch.service.d/override.conf, dest: /etc/systemd/system/elasticsearch.service.d/override.conf }
+  notify:
+  - restart elasticsearch
+
+- name: start elasticsearch
+  systemd:
+    name: elasticsearch
+    enabled: yes
+    state: started
+    daemon_reload: yes

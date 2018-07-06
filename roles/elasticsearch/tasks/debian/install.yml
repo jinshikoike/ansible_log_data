@@ -22,15 +22,18 @@
   environment: "{{ proxy_env }}"
 
 - name: add elasticsearch 6.x apt repository
-  shell: echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
-  environment: "{{ proxy_env }}"
+  lineinfile:
+    path: /etc/apt/sources.list.d/elastic-6.x.list
+    regexp: "^deb https://artifacts.elastic.co/packages/6.x"
+    create: yes
+    state: present
+    line: 'deb https://artifacts.elastic.co/packages/6.x/apt stable main'
 
 - name: install elasticsearch
   apt:
     name: elasticsearch={{ elasticsearch_version | default('6.3.0') }}
     state: present
     update_cache: yes
-  notify: start elasticsearch
   environment: "{{ proxy_env }}"
 
 #- name: download elasticsearch.deb
