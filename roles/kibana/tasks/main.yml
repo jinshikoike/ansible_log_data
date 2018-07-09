@@ -8,4 +8,7 @@
   when: ansible_os_family == 'Debian'
   tags: kibana
 
+- include_tasks: configure.yml
+  tags: kibana
+
 

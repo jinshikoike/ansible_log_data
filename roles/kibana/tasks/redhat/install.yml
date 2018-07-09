@@ -15,5 +15,4 @@
   yum:
     name: kibana-{{ kibana_version | default('6.3.0') }}
     state: present
-  notify: start kibana
   environment: "{{ proxy_env }}"

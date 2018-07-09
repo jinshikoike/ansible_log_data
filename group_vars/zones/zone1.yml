@@ -1,0 +1,4 @@
+---
+zone_group: "{{ (group_names | select('match', '^zones/') | list)[0] }}"
+zone_name: "{{ zone_group.split('/')[1] }}"
+

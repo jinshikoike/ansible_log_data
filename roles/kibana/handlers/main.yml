@@ -1,7 +1,7 @@
 ---
-- name: start kibana
+- name: restart kibana
   systemd:
     name: kibana
-    state: started
+    state: restarted
     enabled: yes
     daemon_reload: yes

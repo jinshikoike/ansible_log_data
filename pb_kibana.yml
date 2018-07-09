@@ -2,5 +2,10 @@
 
 - hosts: roles/kibana
   gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      kibana_es_ip: "{{ (kibana_es_nodes | es_ip_list(hostvars) | list)[0]}}"
+    tags: always
+    changed_when: False
   roles:
   - kibana

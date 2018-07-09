@@ -1,0 +1,7 @@
+---
+
+elasticsearch.preserveHost: true
+elasticsearch.url: http://{{ kibana_es_ip }}:9200
+server.host: {{ kibana_server_host | default(ansible_ssh_host) }}
+server.port: {{ kibana_server_port | default(5601) }}
+
