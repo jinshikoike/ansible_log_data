@@ -1,0 +1,14 @@
+---
+
+- name: create /etc/kibana/kibana.yml
+  template:
+    src: etc/kibana/kibana.yml
+    dest: /etc/kibana/kibana.yml
+  notify: restart kibana
+
+- name: start kibana
+  systemd:
+    name: kibana
+    state: started
+    enabled: yes
+    daemon_reload: yes
