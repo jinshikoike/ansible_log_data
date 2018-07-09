@@ -1,0 +1,31 @@
+[zones/zone1:vars]
+es_cluster_name=dev
+
+[zones/zone1]
+# es
+master01 ansible_ssh_host=xxx.xxx.xxx.xxx es_host=x.x.x.x
+master02 ansible_ssh_host=xxx.xxx.xxx.xxx es_host=x.x.x.x
+data01 ansible_ssh_host= es_host=
+data02 ansible_ssh_host= es_host=
+cord01 ansible_ssh_host= es_host=
+
+# kbn
+Kbn01-cent ansible_ssh_host=
+Kbn02-ubuntu ansible_ssh_host=
+
+# logstash
+LS01-cent ansible_ssh_host=
+LS02-ubuntu ansible_ssh_host=
+
+# bts
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+Bts01-cent ansible_ssh_host=xxx
+KBts02-ubuntu ansible_ssh_host=xxx
+
