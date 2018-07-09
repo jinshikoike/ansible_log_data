@@ -1,2 +1,5 @@
 ---
 zabbix_agent_host_metadata: kibana
+kibana_es_nodes: "{{ groups['roles/escordinator'] | intersect(groups[zone_group]) }}"
+# kibana_server_host
+# kibana_server_port

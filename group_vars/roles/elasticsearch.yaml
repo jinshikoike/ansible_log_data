@@ -1,7 +1,5 @@
 ---
 zabbix_agent_host_metadata: elasticsearch
-zone_group: "{{ (group_names | select('match', '^zones/') | list)[0] }}"
-zone_name: "{{ zone_group.split('/')[1] }}"
 es_cluster_nodes: "{{ groups['roles/elasticsearch'] | intersect(groups[zone_group]) }}"
 es_cluster_master_nodes: "{{ es_cluster_nodes | intersect(groups['roles/esmaster']) }}"
 es_cluster_data_nodes: "{{ es_cluster_nodes | intersect(groups['roles/esdata']) }}"
