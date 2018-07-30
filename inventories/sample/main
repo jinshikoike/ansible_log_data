@@ -6,12 +6,12 @@ ansible_ssh_user=root
 [environments/dev:children]
 zones/zone1
 
-[zones/zone1:vars]
+[zones/sample:vars]
 es_cluster_name=dev
 zone_group="{{ (group_names | select('match', '^zones/') | list)[0] }}"
 zone_name="{{ zone_group.split('/')[1] }}"
 
-[zones/zone1:children]
+[zones/sample:children]
 roles/elasticsearch
 roles/kibana
 roles/logstash
