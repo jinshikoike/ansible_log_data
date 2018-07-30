@@ -14,11 +14,3 @@ data02
 [roles/escordinator]
 cord01
 
-#[clusters/test]
-#master01
-#master02
-#data01
-#data02
-#cord01
-
-
