@@ -1,0 +1,6 @@
+---
+# sample settings for each host
+ls_pipeline_host_vars:
+  topic.2:
+    pipeline_batch_size: 150
+    number_of_theads: 4

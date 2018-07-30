@@ -3,19 +3,19 @@
 #roles/logstash
 #roles/beats
 
-[topics/topic_1]
+[topics/topic.1]
 LS01-cent
 LS02-ubunt
 Bts01-cent
 Bts02-ubuntu
 
-[topics/topic_2]
+[topics/topic.2]
 LS01-cent
 # LS02-ubunt
 Bts01-cent
 Bts02-ubuntu
 
-[topics/log.esxi.cellA]
+[topics/topic.3]
 LS01-cent
 LS02-ubunt
 Bts01-cent
