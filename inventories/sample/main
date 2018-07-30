@@ -3,7 +3,7 @@ host_key_checking=False
 ansible_ssh_port=22
 ansible_ssh_user=root
 
-[environments/dev:children]
+[environments/sample:children]
 zones/zone1
 
 [zones/sample:vars]
