@@ -1,2 +1,8 @@
 ---
 zabbix_agent_host_metadata: beats
+beats_es_hosts: "{{ groups['roles/escordinator'] | intersect(groups[zone_group]) }}"
+beats_kibana_hosts: "{{ groups['roles/escordinator'] | intersect(groups[zone_group]) }}"
+beats_workers: "{{ ansible_processor_vcpus }}"
+beats_kafka_hosts: "{{ groups['roles/kafka'] | intersect(groups[zone_group]) }}"
+beats_topic_name: "{{ (group_names | select('match', '^topics/') | remove_prefix('topics/') | list)[0] }}"
+beats_topic_data: "{{ topics[beats_topic_name] }}"

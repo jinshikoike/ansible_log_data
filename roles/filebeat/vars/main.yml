@@ -1,2 +1,5 @@
 ---
 # vars file for filebeat
+es_endpoints: "{{ beats_es_nodes | map('regex_replace', '^(.*)$', '\\1:9200') | list | join(',') }}"
+beats_kafka_endpoints: "{{ beats_kafka_nodes | map('regex_replace', '^(.*)$', '\"\\1:9092\"') | list | join(',') }}"
+kibana_endpoint: "{{ (beats_kibana_nodes | list)[0]  }}:5601"
