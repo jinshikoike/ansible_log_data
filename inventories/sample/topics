@@ -1,0 +1,23 @@
+# to include all logstash and beats hosts
+#[topics/topic_1:children]
+#roles/logstash
+#roles/beats
+
+[topics/topic_1]
+LS01-cent
+LS02-ubunt
+Bts01-cent
+Bts02-ubuntu
+
+[topics/topic_2]
+LS01-cent
+# LS02-ubunt
+Bts01-cent
+Bts02-ubuntu
+
+[topics/log.esxi.cellA]
+LS01-cent
+LS02-ubunt
+Bts01-cent
+Bts02-ubuntu
+
