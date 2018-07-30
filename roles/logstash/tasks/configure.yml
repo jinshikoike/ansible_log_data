@@ -1,0 +1,63 @@
+---
+
+- name: template logstash.yml
+  template:
+    src: etc/logstash/logstash.yml
+    dest: /etc/logstash/logstash.yml
+  notify: restart logstash
+
+- name: template jvm.options
+  template:
+    src: etc/logstash/jvm.options
+    dest: /etc/logstash/jvm.options
+  notify: restart logstash
+
+- name: template piplines.yml
+  template:
+    src: etc/logstash/pipelines.yml
+    dest: /etc/logstash/pipelines.yml
+
+- name: create idnex templates directory
+  file:
+    path: /etc/logstash/index_templates
+    state: directory
+    owner: logstash
+    group: logstash
+    mode: 0644
+
+- name: template index templates
+  template:
+    src: etc/logstash/index_templates/{{ ls_pipeline_var['pipeline_index_template'] }}
+    dest: /etc/logstash/index_templates/{{ ls_pipeline_var['pipeline_index_template'] }}
+  when: ls_pipeline_var.get('pipeline_index_template', none) is not none
+  vars:
+    ls_pipeline_var: "{{ topics[item] | combine( (ls_pipeline_host_vars | default({})).get(item, {})) }}"
+    ls_pipeline_topic_name: "{{ item }}"
+  with_items: "{{ ls_topics }}"
+
+- name: template pipline conf files to conf.d directory
+  template:
+    src: etc/logstash/conf.d/{{ ls_pipeline_var['pipeline_conf_template'] }}
+    dest: /etc/logstash/conf.d/{{ ls_pipeline_var['pipeline_conf_file'] }}
+    validate: /usr/share/logstash/bin/logstash -t --path.settings /etc/logstash -f %s
+  vars:
+    ls_pipeline_var: "{{ topics[item] | combine( (ls_pipeline_host_vars | default({})).get(item, {})) }}"
+    ls_pipeline_topic_name: "{{ item }}"
+  with_items: "{{ ls_topics }}"
+
+
+  #- name: restart logastash
+  #  systemd:
+  #    name: logstash
+  #    state: restarted
+  #    enabled: yes
+  #    daemon_reload: yes
+  #  when: {{ ls_force_restart is defined }}
+  #  alway: yes
+  #
+  #- name: start logstash
+  #  systemd:
+  #    name: logstash
+  #    state: started
+  #    enabled: yes
+  #    daemon_reload: yes

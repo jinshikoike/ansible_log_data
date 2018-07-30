@@ -1,2 +1,56 @@
 ---
 zabbix_agent_host_metadata: logstash
+pipeline.batch.size: 125
+ls_http_host: "{{ ansible_ssh_host }}"
+ls_jvm_Xms: "{{ host_ls_min_memory | default('512m') }}"
+ls_jvm_Xmx: "{{ host_ls_max_memory | default('512m') }}"
+
+ls_pipeline_conf_files:
+- sample.conf
+ls_es_hosts: "{{ groups['roles/escordinator'] | intersect(groups[zone_group]) }}"
+ls_topics: "{{ group_names | select('match', '^topics/') | remove_prefix('topics/') }}"
+ls_default_workers: "{{ ansible_processor_vcpus | calc_default_workers((ls_topics|length)) }}"
+
+# sample definition for xpack and modules
+#ls_modules:
+#  - name: MODULE_NAME
+#    var.PLUGINTYPE1.PLUGINNAME1.KEY1: VALUE
+#    var.PLUGINTYPE1.PLUGINNAME1.KEY2: VALUE
+#    var.PLUGINTYPE2.PLUGINNAME1.KEY1: VALUE
+#    var.PLUGINTYPE3.PLUGINNAME3.KEY1: VALUE
+#  - name: MODULE_NAME
+#    var.PLUGINTYPE1.PLUGINNAME1.KEY1: VALUE
+#    var.PLUGINTYPE1.PLUGINNAME1.KEY2: VALUE
+#    var.PLUGINTYPE2.PLUGINNAME1.KEY1: VALUE
+#    var.PLUGINTYPE3.PLUGINNAME3.KEY1: VALUE
+#
+#xpack:
+#  monitoring:
+#    enabled: false
+#    elasticsearch:
+#      username: logstash_system
+#      password: password
+#      url: ["https://es1:9200", "https://es2:9200"]
+#      ssl.ca: [ "/path/to/ca.crt" ]
+#      ssl.truststore.path: path/to/file
+#      ssl.truststore.password: password
+#      ssl.keystore.path: /path/to/file
+#      ssl.keystore.password: password
+#      ssl.verification_mode: certificate
+#      sniffing: false
+#    collection.interval: 10s
+#    collection.pipeline.details.enabled: true
+#  management:
+#    enabled: false
+#    pipeline.id: ["main", "apache_logs"]
+#    elasticsearch:
+#      username: logstash_admin_user
+#      password: password
+#      url: ["https://es1:9200", "https://es2:9200"]
+#      ssl.ca: [ "/path/to/ca.crt" ]
+#      ssl.truststore.path: /path/to/file
+#      ssl.truststore.password: password
+#      ssl.keystore.path: /path/to/file
+#      ssl.keystore.password: password
+#      sniffing: false
+#    logstash.poll_interval: 5s

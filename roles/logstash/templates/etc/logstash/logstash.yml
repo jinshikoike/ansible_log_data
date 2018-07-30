@@ -1,0 +1,28 @@
+path.data: {{ ls_path_data | default('/var/lib/logstash') }}
+pipeline.id: {{ ls_pipeline_id | default('main') }}
+pipeline.batch.size: {{ ls_pipeline_batch_size | default(125) }}
+config.reload.automatic: {{ ls_config_reload_automatic | default(true) }}
+config.reload.interval: {{ ls_reload_interval |  default('3s') }}
+{% if ls_modules is defined %}
+modules:
+  {{ ls_modules | to_nice_yaml(indent=2) | indent(2)}}
+{% endif  %}
+queue.type: persisted
+queue.page_capacity: {{ ls_queue_page_capacity | default('64mb') }}
+queue.max_bytes: {{ ls_queue_max_byte | default('1024mb') }}
+dead_letter_queue.enable: {{ ls_dead_letter_queue_enable | default(false) }}
+dead_letter_queue.max_bytes: {{ ls_daed_letter_queue_max_bytes | default('1024mb') }}
+http.host: {{ ls_http_host | default('127.0.0.1') }}
+http.port: {{ ls_http_port_range_start | default(9600)}}-{{ ls_http_port_range_end | default(9700) }}
+{% if is_production  %}
+log.level: info
+{% else %}
+log.level: debug
+config.debug: true
+{% endif %}
+{% if xpack is defined %}
+# https://www.elastic.co/guide/en/logstash/current/monitoring-logstash.html
+xpack:
+  {{ xpack | to_nice_yaml(indent=2) | indent(2) }}
+{% endif %}
+
