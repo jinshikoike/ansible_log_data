@@ -1,2 +1,3 @@
 ---
 # vars file for logstash
+ls_es_endpoints: "{{ ls_es_nodes | map('regex_replace', '^(.*)$', '\"\\1:9200\"') | list | join(',') }}"

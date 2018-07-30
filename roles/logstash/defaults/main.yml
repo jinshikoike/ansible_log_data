@@ -1,3 +1,4 @@
 ---
 # defaults file for logstash
 logstash_version: 6.3.0
+ls_pipeline_conf_files: []

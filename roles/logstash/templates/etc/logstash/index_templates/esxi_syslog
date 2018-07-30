@@ -1,0 +1,40 @@
+{
+
+  "index_patterns": ["{{ ls_pipeline_var['pipeline_index_prefix'] }}-*"],
+  "settings": {
+    "number_of_shards": 3
+  },
+  "mappings": {
+    "_doc": {
+      "_source": {
+        "enabled": false
+      },
+      "properties": {
+        "syslog_severity": {
+          "type": "keyword"
+        },
+        "hostname": {
+          "type": "keyword"
+        },
+        "cellname": {
+          "type": "keyword"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "program": {
+          "type": "keyword"
+        },
+        "syslog_facility": {
+          "type": "keyword"
+        },
+        "tags": {
+          "type": "keyword"
+        },
+        "@timestamp": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

@@ -2,5 +2,10 @@
 
 - hosts: roles/logstash
   gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      ls_es_nodes: "{{ ls_es_hosts | es_ip_list(hostvars) }}"
+    tags: always
+    changed_when: False
   roles:
   - logstash

@@ -1,0 +1,20 @@
+# This file is where you define your pipelines. You can define multiple.
+# For more information on multiple pipelines, see the documentation:
+#   https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html
+
+#- pipeline.id: main
+#  path.config: "/etc/logstash/conf.d/*.conf"
+
+{% for topic in ls_topics %}
+{% set host_var_topic = (ls_pipeline_host_vars | default({})).get(topic, {}) %}
+{% set topic_info = topics[topic] | combine(host_var_topic) %}
+- pipline.id: {{ topic }}
+  pipeline.workers: {{ topic_info.get('pipeline_workers', ls_default_workers) }}
+{% if topic_info.get('pipeline_batch_size') is not none %}
+  pipeline.batch.size: {{ topic_info.get('pipeline_batch_size') }}
+{% endif %}
+{% if topic_info.get('pipeline_batch_delay') is not none %}
+  pipeline.batch.delay: {{ topic_info.get('pipeline_batch_delay') }}
+{% endif %}
+  path.config: "/etc/logstash/conf.d/{{ topic_info['pipeline_conf_file'] }}"
+{% endfor %}
