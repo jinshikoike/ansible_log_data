@@ -2,26 +2,71 @@
 
 - hosts: roles/auditbeat
   gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      beats_es_nodes: "{{ beats_es_hosts | es_ip_list(hostvars) }}"
+      beats_kibana_nodes: "{{ beats_kibana_hosts | kibana_ip_list(hostvars) }}"
+      beats_kafka_nodes: "{{ beats_kafka_hosts | kafka_ip_list(hostvars) }}"
+    tags: always
+    changed_when: False
+  tags:
+    - auditbeat
   roles:
   - auditbeat
 
 - hosts: roles/filebeat
   gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      beats_es_nodes: "{{ beats_es_hosts | es_ip_list(hostvars) }}"
+      beats_kibana_nodes: "{{ beats_kibana_hosts | kibana_ip_list(hostvars) }}"
+      beats_kafka_nodes: "{{ beats_kafka_hosts | kafka_ip_list(hostvars) }}"
+    tags: always
+    changed_when: False
+  tags:
+    - filebeat
   roles:
   - filebeat
 
 - hosts: roles/heartbeat
   gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      beats_es_nodes: "{{ beats_es_hosts | es_ip_list(hostvars) }}"
+      beats_kibana_nodes: "{{ beats_kibana_hosts | kibana_ip_list(hostvars) }}"
+      beats_kafka_nodes: "{{ beats_kafka_hosts | kafka_ip_list(hostvars) }}"
+    tags: always
+    changed_when: False
+  tags:
+    - heartbeat
   roles:
   - heartbeat
 
 - hosts: roles/metricbeat
   gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      beats_es_nodes: "{{ beats_es_hosts | es_ip_list(hostvars) }}"
+      beats_kibana_nodes: "{{ beats_kibana_hosts | kibana_ip_list(hostvars) }}"
+      beats_kafka_nodes: "{{ beats_kafka_hosts | kafka_ip_list(hostvars) }}"
+    tags: always
+    changed_when: False
+  tags:
+    - metricbeat
   roles:
   - metricbeat
 
 - hosts: roles/packetbeat
   gather_facts: yes
+  pre_tasks:
+  - set_fact:
+      beats_es_nodes: "{{ beats_es_hosts | es_ip_list(hostvars) }}"
+      beats_kibana_nodes: "{{ beats_kibana_hosts | kibana_ip_list(hostvars) }}"
+      beats_kafka_nodes: "{{ beats_kafka_hosts | kafka_ip_list(hostvars) }}"
+    tags: always
+    changed_when: False
+  tags:
+    - packetbeat
   roles:
   - packetbeat
 

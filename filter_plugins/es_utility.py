@@ -27,6 +27,9 @@ def es_ip_list(hostnames, hostvars):
 def kibana_ip_list(hostnames, hostvars):
     return __extract_ip_list(hostvars, hostnames, 'kibana_host')
 
+def kafka_ip_list(hostnames, hostvars):
+    return __extract_ip_list(hostvars, hostnames, 'kafka_host')
+
 def remove_prefix(targets, prefix):
     result = []
     for target in targets:
@@ -49,6 +52,7 @@ class FilterModule(object):
         return {
                 'es_ip_list': es_ip_list,
                 'kibana_ip_list': kibana_ip_list,
+                'kafka_ip_list': kafka_ip_list,
                 'ansible_ssh_host_list': ansible_ssh_host_list,
                 'remove_prefix': remove_prefix,
                 'calc_default_workers': calc_default_workers

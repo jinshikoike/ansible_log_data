@@ -1,0 +1,15 @@
+path.home: /usr/share/filebeat
+path.config: /etc/filebeat
+path.data: /var/lib/filebeat
+path.logs: /var/log/filebeat
+
+filebeat.inputs:
+- type: syslog
+  protocol.tcp:
+    host: "{{ beats_topic_data['beats_input_syslog_host']  }}"
+
+output.kafka:
+  hosts: [{{ beats_kafka_endpoints }}]
+  client_id: "{{ inventory_hostname }}-{{ beats_topic_name }}"
+  worker: {{ beats_workers }}
+  topic: {{ beats_topic_name }}

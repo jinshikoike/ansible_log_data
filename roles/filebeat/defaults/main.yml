@@ -1,2 +1,3 @@
 ---
 # defaults file for filebeat
+fb_bin:  /usr/share/filebeat/bin/filebeat

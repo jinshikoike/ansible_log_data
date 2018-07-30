@@ -1,0 +1,20 @@
+- name: template /etc/filebeat/filebeat.yml
+  template:
+    src: etc/filebeat/filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+
+- name: filebeat setup template
+  shell: filebeat setup --template -E output.kafka.enabled=false -E output.elasticsearch.hosts=[{{ es_endpoints }}] -c /etc/filebeat/filebeat.yml
+  changed_when: false
+
+- name: felebeat setup kibana dashboard
+  shell: |
+    filebeat setup -e \
+    -E output.kafka.enabled=false \
+    -E output.elasticsearch.hosts=[{{ es_endpoints }}] \
+    -E output.elasticsearch.username=filebeat_internal \
+    -E output.elasticsearch.password=YOUR_PASSWORD \
+    -E setup.kibana.host={{ kibana_endpoint }}
+  changed_when: false
+
+
