@@ -15,5 +15,4 @@
   yum:
     name: "{{ beat_package }}-{{ beat_version | default('6.3.0') }}"
     state: present
-  notify: "start {{ beat_package }}"
   environment: "{{ proxy_env }}"

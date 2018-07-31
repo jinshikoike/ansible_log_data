@@ -1,8 +1,2 @@
 ---
 
-- name: "start {{ beat_package }}"
-  systemd:
-    name: "{{ beat_package }}"
-    state: started
-    enabled: yes
-    daemon_reload: yes
