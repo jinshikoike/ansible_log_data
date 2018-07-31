@@ -46,18 +46,18 @@
   with_items: "{{ ls_topics }}"
 
 
-  #- name: restart logastash
-  #  systemd:
-  #    name: logstash
-  #    state: restarted
-  #    enabled: yes
-  #    daemon_reload: yes
-  #  when: {{ ls_force_restart is defined }}
-  #  alway: yes
-  #
-  #- name: start logstash
-  #  systemd:
-  #    name: logstash
-  #    state: started
-  #    enabled: yes
-  #    daemon_reload: yes
+- name: restart logastash
+  systemd:
+    name: logstash
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  when: {{ ls_force_restart is defined }}
+  alway: yes
+
+- name: start logstash
+  systemd:
+    name: logstash
+    state: started
+    enabled: yes
+    daemon_reload: yes

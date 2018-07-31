@@ -2,6 +2,7 @@
   template:
     src: etc/filebeat/filebeat.yml
     dest: /etc/filebeat/filebeat.yml
+  notify: restart filebeat
 
 - name: filebeat setup template
   shell: filebeat setup --template -E output.kafka.enabled=false -E output.elasticsearch.hosts=[{{ es_endpoints }}] -c /etc/filebeat/filebeat.yml
@@ -17,4 +18,9 @@
     -E setup.kibana.host={{ kibana_endpoint }}
   changed_when: false
 
-
+- name: "start {{ filebeat }}"
+  systemd:
+    name: "{{ filebeat }}"
+    state: started
+    enabled: yes
+    daemon_reload: yes
