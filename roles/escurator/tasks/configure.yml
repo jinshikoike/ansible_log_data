@@ -1,0 +1,25 @@
+---
+
+- name: create /opt/curator
+  file:
+    path: /opt/curator
+    state: directory
+
+- name: template curator.conf
+  template:
+    dest: "/opt/curator/curator.conf"
+    src: "opt/curator/curator.conf.yml"
+
+- name: template curator.conf
+  template:
+    dest: "/opt/curator/delete_index.yml"
+    src: "opt/curator/action.yml"
+  validate: curator --config /opt/curator/curator.conf --dry-run /opt/curator/delete_index.yml
+
+- name: cron delete_indices
+  cron:
+    name: "escurator delete_indices"
+    job: curator --config /opt/curator/curator.conf /opt/curator/delete_index.yml
+    hour: 0
+    minute: 0
+    state: present

@@ -30,4 +30,8 @@
   roles:
   - escordinator
 
+- hosts: roles/escurator
+  gather_facts: yes
+  roles:
+  - escurator
 

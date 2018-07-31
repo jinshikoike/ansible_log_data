@@ -1,0 +1,3 @@
+client:
+  hosts: {{ es_curator_es_host }}
+  port: {{ es_curator_es_port }}

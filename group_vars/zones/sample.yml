@@ -9,7 +9,7 @@ topics:
     pipeline_conf_file: esxi.conf
     pipeline_conf_template: vmware_product_syslog.conf
     pipeline_grok_parser: "<%{POSINT:syslog_pri}>%{TIMESTAMP_ISO8601:timestamp} %{SYSLOGHOST:hostname} %{SYSLOGPROG}: %{GREEDYDATA:syslog_message}"
-    pipeline_index_prefix: test
+    pipeline_index_prefix: packetbeat
     pipeline_index_template: esxi_syslog
     beats_input_syslog_host: 0.0.0.0:10514
 
@@ -20,6 +20,7 @@ topics:
     pipeline_batch_delay: 100
     pipeline_conf_file: sample.conf
     pipeline_conf_template: sample.conf
+    pipeline_index_prefix: metricbeat
 
   topic.3:
     number_of_partitions: 3
@@ -28,7 +29,7 @@ topics:
     pipeline_conf_file: esxi_3.conf
     pipeline_conf_template: vmware_product_syslog.conf
     pipeline_grok_parser: "<%{POSINT:syslog_pri}>%{TIMESTAMP_ISO8601:timestamp} %{SYSLOGHOST:hostname} %{SYSLOGPROG}: %{GREEDYDATA:syslog_message}"
-    pipeline_index_prefix: test
+    pipeline_index_prefix: metricbeat
     pipeline_index_template: esxi_syslog
     additional_fields:
       cellname: cell-1

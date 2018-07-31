@@ -1,0 +1,23 @@
+---
+
+actions:
+{% for index_prefix in es_curator_index_prefixes %}
+  {{ index_prefix }}:
+    action: delete_indices
+    description: >-
+      Delete indices older than 14 days (based on index name), for {{ index_prefix }}-
+      prefixed indices.
+    options:
+      ignore_empty_list: True
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: {{ index_prefix }}-
+    - filtertype: age
+      source: name
+      direction: older
+      timestring: '%Y.%m.%d'
+      unit: days
+      unit_count: 14
+{% endfor %}

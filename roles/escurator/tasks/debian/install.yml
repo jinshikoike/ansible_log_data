@@ -1,0 +1,25 @@
+---
+
+- name: install pgp key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+  environment: "{{ proxy_env }}"
+
+- name: add elasticsearch-curator repository
+  lineinfile:
+    path: /etc/apt/sources.list.d/curator.list
+    regexp: 'deb.*https://packages.elastic.co/curator/5/debian stable main'
+    create: yes
+    state: present
+    line: 'deb [arch=amd64] https://packages.elastic.co/curator/5/debian stable main'
+  tags:
+    - curator
+
+- name: install elasticsearch-curator
+  apt:
+    name: elasticsearch-curator
+    state: present
+    update_cache: yes
+  environment: "{{ proxy_env }}"
+

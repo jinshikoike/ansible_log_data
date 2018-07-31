@@ -30,6 +30,15 @@ def kibana_ip_list(hostnames, hostvars):
 def kafka_ip_list(hostnames, hostvars):
     return __extract_ip_list(hostvars, hostnames, 'kafka_host')
 
+def get_index_prefixes_from_topics(topics):
+    result = set()
+    for topic_name in topics:
+        topic = topics[topic_name]
+        index_prefix = topic.get('pipeline_index_prefix')
+        if index_prefix != None:
+            result.add(index_prefix)
+    return list(result)
+
 def remove_prefix(targets, prefix):
     result = []
     for target in targets:
@@ -55,5 +64,6 @@ class FilterModule(object):
                 'kafka_ip_list': kafka_ip_list,
                 'ansible_ssh_host_list': ansible_ssh_host_list,
                 'remove_prefix': remove_prefix,
-                'calc_default_workers': calc_default_workers
+                'calc_default_workers': calc_default_workers,
+                'get_index_prefixes_from_topics': get_index_prefixes_from_topics
                 }
