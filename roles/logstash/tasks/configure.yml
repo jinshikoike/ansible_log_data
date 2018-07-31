@@ -52,7 +52,7 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
-  when: {{ ls_force_restart is defined }}
+  when: ls_force_restart is defined
   alway: yes
 
 - name: start logstash
