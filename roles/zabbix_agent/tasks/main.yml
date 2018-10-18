@@ -1,4 +1,5 @@
 ---
+
 # tasks file for zabbix_agent
 # you can check your os family, ansible_distribution ... and so on by `ansible -m setup hostname`
 
@@ -17,10 +18,18 @@
 
 - name: configure zabbix-agent
   template:
-    src: zabbix_agent.conf.j2
-    dest: /etc/zabbix/zabbix_agent.conf
+    src: zabbix_agentd.conf.j2
+    dest: /etc/zabbix/zabbix_agentd.conf
   tags:
   - configure
   notify:
   - restart zabbix
   tags: zabbix_agent
+
+- name: start zabbix-agent
+  systemd:
+    name: zabbix-agent
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  check_mode: no

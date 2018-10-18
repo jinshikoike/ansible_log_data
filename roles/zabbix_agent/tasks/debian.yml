@@ -14,9 +14,7 @@
   tags:
   - install
 
-- name: start zabbix-agent
-  systemd:
-    name: zabbix-agent
-    state: started
-    enabled: yes
-    daemon_reload: yes
+- name: create /etc/zabbix/zabbix_agentd.conf.d directory
+  file:
+    path: /etc/zabbix/zabbix_agentd.conf.d
+    state: directory

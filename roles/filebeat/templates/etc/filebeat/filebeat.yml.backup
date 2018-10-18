@@ -1,0 +1,18 @@
+path.home: /usr/share/filebeat
+path.config: /etc/filebeat
+path.data: /var/lib/filebeat
+path.logs: /var/log/filebeat
+
+filebeat.inputs:
+- type: syslog
+  protocol.tcp:
+    host: "0.0.0.0:10514"
+
+  #filebeat.modules:
+  #  - module: system
+  #    syslog:
+  #      ebabled: true
+  #      var.paths: ["/var/log/messages"]
+  #
+output.logstash:
+  hosts: ["175.184.27.254:5044"]

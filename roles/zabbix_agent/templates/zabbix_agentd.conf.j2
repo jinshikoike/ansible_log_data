@@ -1,13 +1,13 @@
 # This is a configuration file for Zabbix agent daemon (Unix)
 # To get more information about Zabbix, visit http://www.zabbix.com
 
-Server={{ zabbix_server_ip }}↲
-ServerActive={{ zabbix_server_ip }}↲
-HostMetadata={{ zabbix_agent_host_metadata }}↲
-AllowRoot=1↲
-Include=/etc/zabbix/zabbix_agentd.conf.d/↲
-EnableRemoteCommands=1↲
-
+Server={{ zabbix_server_ip }}
+ServerActive={{ zabbix_server_ip }}
+HostMetadata={{ zabbix_agent_host_metadata }}
+AllowRoot=1
+Include=/etc/zabbix/zabbix_agentd.conf.d/
+EnableRemoteCommands=1
+LogFileSize=1024
 ############ GENERAL PARAMETERS #################
 
 ### Option: PidFile
@@ -47,7 +47,7 @@ LogFile=/var/log/zabbix/zabbix_agentd.log
 # Default:
 # LogFileSize=1
 
-LogFileSize=0
+# LogFileSize=0
 
 ### Option: DebugLevel
 #       Specifies debug level:
@@ -140,7 +140,7 @@ LogFileSize=0
 # Default:
 # ServerActive=
 
-ServerActive=127.0.0.1
+# ServerActive=127.0.0.1
 
 ### Option: Hostname
 #       Unique, case sensitive hostname.
@@ -151,7 +151,7 @@ ServerActive=127.0.0.1
 # Default:
 # Hostname=
 
-Hostname=Zabbix server
+# Hostname=Zabbix server
 
 ### Option: HostnameItem
 #       Item used for generating Hostname if it is undefined. Ignored if Hostname is defined.
@@ -269,7 +269,7 @@ Hostname=Zabbix server
 # Default:
 # Include=
 
-Include=/etc/zabbix/zabbix_agentd.d/
+# Include=/etc/zabbix/zabbix_agentd.d/
 
 # Include=/usr/local/etc/zabbix_agentd.userparams.conf
 # Include=/usr/local/etc/zabbix_agentd.conf.d/

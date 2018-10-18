@@ -18,9 +18,9 @@
     -E setup.kibana.host={{ kibana_endpoint }}
   changed_when: false
 
-- name: "start {{ filebeat }}"
+- name: "start filebeat"
   systemd:
-    name: "{{ filebeat }}"
+    name: "filebeat"
     state: started
     enabled: yes
     daemon_reload: yes
