@@ -33,3 +33,4 @@
     enabled: yes
     daemon_reload: yes
   check_mode: no
+  tags: zabbix_agent
