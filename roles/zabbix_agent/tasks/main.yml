@@ -20,6 +20,7 @@
   file:
     path: /etc/zabbix/zabbix_agentd.conf.d
     state: directory
+  tags: zabbix_agent
 
 - name: configure zabbix-agent
   template:
