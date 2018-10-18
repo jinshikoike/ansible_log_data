@@ -14,7 +14,3 @@
   tags:
   - install
 
-- name: create /etc/zabbix/zabbix_agentd.conf.d directory
-  file:
-    path: /etc/zabbix/zabbix_agentd.conf.d
-    state: directory
